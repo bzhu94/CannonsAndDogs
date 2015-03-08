@@ -46,33 +46,18 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\Endless2DTerrain\Core\Scripts\Extensions.cs" />
-     <Compile Include="Assets\Endless2DTerrain\Core\Scripts\MeshPiece.cs" />
-     <Compile Include="Assets\Endless2DTerrain\Core\Scripts\PrefabManager.cs" />
-     <Compile Include="Assets\Endless2DTerrain\Core\Scripts\PrefabPool.cs" />
-     <Compile Include="Assets\Endless2DTerrain\Core\Scripts\PrefabRule.cs" />
-     <Compile Include="Assets\Endless2DTerrain\Core\Scripts\RenderQueue.cs" />
-     <Compile Include="Assets\Endless2DTerrain\Core\Scripts\Settings.cs" />
-     <Compile Include="Assets\Endless2DTerrain\Core\Scripts\TerrainDisplayer.cs" />
-     <Compile Include="Assets\Endless2DTerrain\Core\Scripts\TerrainManager.cs" />
-     <Compile Include="Assets\Endless2DTerrain\Core\Scripts\TerrainPiece.cs" />
-     <Compile Include="Assets\Endless2DTerrain\Core\Scripts\TerrainPool.cs" />
-     <Compile Include="Assets\Endless2DTerrain\Core\Scripts\TerrainRule.cs" />
-     <Compile Include="Assets\Endless2DTerrain\Core\Scripts\TransformHelpers.cs" />
-     <Compile Include="Assets\Endless2DTerrain\Core\Scripts\VertexGenerator.cs" />
-     <Compile Include="Assets\Endless2DTerrain\Demos\Scripts\ChaseCamera.cs" />
-     <Compile Include="Assets\Endless2DTerrain\Demos\Scripts\CoinPickup.cs" />
-     <Compile Include="Assets\Endless2DTerrain\Demos\Scripts\PlayerMovement.cs" />
      <Compile Include="Assets\Scripts\GameManager.cs" />
      <Compile Include="Assets\Scripts\PhysicsEngine.cs" />
+     <Compile Include="Assets\Scripts\Q1\CanyonGenerator.cs" />
      <Compile Include="Assets\Scripts\Q2\ArrowWind.cs" />
      <Compile Include="Assets\Scripts\Q2\CannonBall.cs" />
      <Compile Include="Assets\Scripts\Q2\ShootCannonBall.cs" />
      <Compile Include="Assets\Scripts\Q4\Dog.cs" />
      <Compile Include="Assets\Scripts\Q4\DoubleVector2.cs" />
+     <Compile Include="Assets\Scripts\Q4\ShootDog.cs" />
      <Compile Include="Assets\Scripts\Q4\VerletPoint.cs" />
+     <Compile Include="Assets\Scripts\Q4\VerletPointBetter.cs" />
      <Compile Include="Assets\Scripts\Q4\VerletStick.cs" />
-     <None Include="Assets\Endless2DTerrain\Demos\Resources\Shaders\VertexColorUnlit.shader" />
  <Reference Include="UnityEngine.UI">
  <HintPath>/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/GUISystem/4.6.1/UnityEngine.UI.dll</HintPath>
  </Reference>

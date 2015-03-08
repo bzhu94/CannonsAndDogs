@@ -3,6 +3,7 @@ using System.Collections;
 
 public class CannonBall : MonoBehaviour {
 
+	//public AudioClip coin;
 	public Vector3 Acceleration;
 	public Vector3 Velocity;
 	public Vector3 OldVelocity; 
@@ -13,6 +14,7 @@ public class CannonBall : MonoBehaviour {
 	void Start () {
 		Acceleration = PhysicsEngine.Gravity;
 		Radius = .09f;
+		//gameObject.audio.enabled = true;
 	}
 	
 	// Update is called once per frame
@@ -34,17 +36,18 @@ public class CannonBall : MonoBehaviour {
 		
 		Velocity = new Vector3(PhysicsEngine.WindResistance * Velocity.x, PhysicsEngine.WindResistance * Velocity.y, 0); //account in  wind resistance
 		
-		Debug.Log ("Outside" + (OldVelocity + Velocity) * .5f * Time.deltaTime);
+		//Debug.Log ("Outside" + (OldVelocity + Velocity) * .5f * Time.deltaTime);
 		
 		CheckCollision();
 
 
 		transform.position += (OldVelocity + Velocity) * .5f * Time.deltaTime;
+
 	}
 
-	void CheckInBounds()
+	void CheckInBounds() //if out, destroy
 	{
-		if(transform.position.x < .5 || transform.position.x > 5.7 || transform.position.y < 2.8) 
+		if(transform.position.x < 0 || transform.position.x > 6 || transform.position.y < 2.7) 
 		Destroy(gameObject); //if goes out of left bounds of canyon
 	}
 
@@ -54,36 +57,34 @@ public class CannonBall : MonoBehaviour {
 		//find the forward ray position of the predicted translated object's point in the velocity direction
 		GameObject forwardCenter =  new GameObject();
 		forwardCenter.transform.position = new Vector3((OldVelocity.x + Velocity.x) * .5f * Time.deltaTime + transform.position.x, (OldVelocity.y + Velocity.y) * .5f * Time.deltaTime + transform.position.y, 0);
-		Debug.Log ("Center: "+ forwardCenter.transform.position);
+		//Debug.Log ("Center: "+ forwardCenter.transform.position);
 		
 		GameObject projection = new GameObject();
 
-		projection.transform.position = new Vector3((OldVelocity.x + Velocity.x) * .5f, (OldVelocity.y + Velocity.y) * .5f, 0); //first find the direction 	
-		Debug.Log ("Before: "+projection.transform.position);
-		projection.transform.position.Normalize(); //now Normalize this direction Vector
-		Debug.Log ("Normalized: " + projection.transform.position);
-		Debug.Log ("Magnitude: "+ projection.transform.position.magnitude);
-		projection.transform.position = new Vector3(projection.transform.position.x * Radius, projection.transform.position.y * Radius, 0); //now the direction vector is of length radius
-
-		Debug.Log ("Radius Direction Vector: " + projection.transform.position);
-		projection.transform.position = new Vector3(projection.transform.position.x + forwardCenter.transform.position.x, projection.transform.position.y + forwardCenter.transform.position.y, 0); //now translate to actual coordinates
+		projection.transform.position = new Vector3((OldVelocity.x + Velocity.x) * .5f, (OldVelocity.y + Velocity.y) * .5f, 0); //first find the direction 			
 		
-
-		//FOR DEBUGGING: DRAW LINE!
-
-		//Debug.Log ("Center: "+ forwardCenter.transform.position + ",  Projection: "+ projection.transform.position);
-		/*
-		lr = GetComponent<LineRenderer>();
-		lr.SetWidth (.05f, .05f);
-		lr.SetPosition(0, forwardCenter.transform.position);
-		lr.SetPosition(1, projection.transform.position);
-		*/
-
 		RaycastHit hit;
 		Ray r = new Ray(forwardCenter.transform.position, projection.transform.position);
+		//Debug.DrawRay(forwardCenter.transform.position, projection.transform.position * Radius);
 		if(Physics.Raycast(r, out hit, Radius))
 		{
-			Debug.Log ("HIT!");
+			//Debug.Log ("HIT: "+hit.collider.gameObject.name);
+			
+			Vector3 norm = hit.normal;
+
+			Vector3 reflected = Velocity - (Vector3.Dot (2f * Velocity, norm) / Mathf.Pow(norm.magnitude, 2)) * norm;
+
+			reflected = reflected * PhysicsEngine.bounce;
+
+
+			if((hit.transform.parent.name == "CanyonLeft" && reflected.x < 0) || (hit.transform.parent.name == "CanyonRight" && reflected.x > 0)) //so if hits a funny angle, make it not be funny LOL
+			{
+				reflected.x *= -1;
+				reflected.y = Mathf.Abs(reflected.y);
+			}
+
+			Velocity = reflected; //now set these equal to new bounced off
+			OldVelocity = reflected; //now set these equal to new bounced off
 		}
 
 		Destroy(forwardCenter);

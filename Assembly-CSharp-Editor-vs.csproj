@@ -47,9 +47,6 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\Editor\CreateCone.cs" />
-     <Compile Include="Assets\Endless2DTerrain\Core\Scripts\Editor\EndlessMenu.cs" />
-     <Compile Include="Assets\Endless2DTerrain\Core\Scripts\Editor\TerrainEditor.cs" />
-     <None Include="Assets\Endless2DTerrain\Demos\Resources\Shaders\VertexColorUnlit.shader" />
  <Reference Include="Assembly-UnityScript">
  <HintPath>/Users/appleuser/Brian/Winter_2015/COMP 521/A2/Library/ScriptAssemblies/Assembly-UnityScript.dll</HintPath>
  </Reference>

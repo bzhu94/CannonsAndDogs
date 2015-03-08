@@ -7,12 +7,16 @@ public class PhysicsEngine : MonoBehaviour {
 	public static float WindResistance;
 	public static Vector3 Gravity;
 	public static float ForceValue;
+
+	public static float bounce;
 	// Use this for initialization
 	void Start () {
 		Gravity = new Vector3 (0, -5, 0);
 		WindResistance = .99f;
 		//WindResistance = 1f; //no wr
 		ForceValue = 4;
+
+		bounce = .7f;
 		//ForceValue = 0; //no WindForce
 	}
 	
