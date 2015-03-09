@@ -19,8 +19,6 @@ public class ShootCannonBall : MonoBehaviour {
 			Shoot();
 			//Debug.Log ("Space pressed");
 		}
-		
-
 	}
 	
 	//3 is lowest speed

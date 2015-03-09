@@ -3,8 +3,8 @@ using System.Collections;
 
 public class VerletStick : MonoBehaviour {
 
-	public VerletPoint pointa;
-	public VerletPoint pointb;
+	public VerletPointWorst pointa;
+	public VerletPointWorst pointb;
 	public double distConstraint;
 
 	private LineRenderer lr;

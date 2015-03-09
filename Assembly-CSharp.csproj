@@ -46,6 +46,8 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\Old\Scripts\DoubleVector2.cs" />
+     <Compile Include="Assets\Old\Scripts\VerletPointWorst.cs" />
      <Compile Include="Assets\Scripts\GameManager.cs" />
      <Compile Include="Assets\Scripts\PhysicsEngine.cs" />
      <Compile Include="Assets\Scripts\Q1\CanyonGenerator.cs" />
@@ -53,10 +55,8 @@
      <Compile Include="Assets\Scripts\Q2\CannonBall.cs" />
      <Compile Include="Assets\Scripts\Q2\ShootCannonBall.cs" />
      <Compile Include="Assets\Scripts\Q4\Dog.cs" />
-     <Compile Include="Assets\Scripts\Q4\DoubleVector2.cs" />
      <Compile Include="Assets\Scripts\Q4\ShootDog.cs" />
      <Compile Include="Assets\Scripts\Q4\VerletPoint.cs" />
-     <Compile Include="Assets\Scripts\Q4\VerletPointBetter.cs" />
      <Compile Include="Assets\Scripts\Q4\VerletStick.cs" />
  <Reference Include="UnityEngine.UI">
  <HintPath>/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/GUISystem/4.6.1/UnityEngine.UI.dll</HintPath>
