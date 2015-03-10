@@ -10,22 +10,24 @@ public class VerletPoint : MonoBehaviour {
 	public float Radius;
 	
 	public LineRenderer lr;
+
 	// Use this for initialization
 	void Start () {
 		Acceleration = PhysicsEngine.Gravity;
 		Radius = .09f;
 		//gameObject.audio.enabled = true;
-		Velocity = new Vector3(0, 0, 0);
+		//Velocity = new Vector3(0, 0, 0);
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		RefreshPhysics();
-		CheckInBounds();
+		//RefreshPhysics();
+		//CheckInBounds();
+		
 		
 	}
 	
-	void RefreshPhysics() //changes velocity, acceleration, position in accordance to verlet integration
+	public void RefreshPhysics() //changes velocity, acceleration, position in accordance to verlet integration
 	{
 		//WindForce = new Vector3(Random.Range(-.5f, .5f), 0, 0);
 		//Debug.Log (WindForce);
@@ -46,17 +48,18 @@ public class VerletPoint : MonoBehaviour {
 		
 	}
 	
-	bool CheckInBounds() //if out, destroy
+	public bool CheckInBounds() //if out, destroy
 	{
-		if(transform.position.x < 0 || transform.position.x > 6 || transform.position.y < 2.6) 
+		if(transform.position.x < 0 || transform.position.x > 6 || transform.position.y < 2.7) 
 		{
+			//Debug.Log ("Destroyed: " + transform.position);
 			Destroy(gameObject); //if goes out of left bounds of canyon
 			return false;
 		}
 		else return true;
 	}
 	
-	void CheckCollision()
+	public void CheckCollision()
 	{
 		
 		//find the forward ray position of the predicted translated object's point in the velocity direction
@@ -88,7 +91,11 @@ public class VerletPoint : MonoBehaviour {
 				reflected.y = Mathf.Abs(reflected.y);
 			}
 
-			if(hit.transform.parent.name == "Bottom") Destroy(gameObject);
+			if(hit.transform.parent.name == "Bottom") 
+			{
+				Destroy(gameObject);
+			}
+
 			
 			Velocity = reflected; //now set these equal to new bounced off
 			OldVelocity = reflected; //now set these equal to new bounced off

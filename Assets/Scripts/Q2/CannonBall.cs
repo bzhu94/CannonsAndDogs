@@ -40,8 +40,9 @@ public class CannonBall : MonoBehaviour {
 		
 		CheckCollision();
 
-
+		Debug.Log ("Before: "+ transform.position + " vel: " + (OldVelocity + Velocity) * .5f);
 		transform.position += (OldVelocity + Velocity) * .5f * Time.deltaTime;
+		Debug.Log ("After: " + transform.position);
 
 	}
 

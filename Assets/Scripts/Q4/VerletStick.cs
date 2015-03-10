@@ -3,55 +3,78 @@ using System.Collections;
 
 public class VerletStick : MonoBehaviour {
 
-	public VerletPointWorst pointa;
-	public VerletPointWorst pointb;
-	public double distConstraint;
+	public VerletPoint pointa;
+	public VerletPoint pointb;
+	public float distConstraint;
 
-	private LineRenderer lr;
+	public LineRenderer lr;
+
+	public bool visible;
 	// Use this for initialization
 
 	void Start () {
-		lr = GetComponent<LineRenderer>();
-		lr.SetWidth (.05f, .05f);
-		lr.SetPosition(0, pointa.transform.position);
-		lr.SetPosition(1, pointb.transform.position);
-		
-		
-		double dx = pointa.getX() - pointb.getX();
-		double dy = pointa.getY() - pointb.getY();
-		
-		distConstraint = (double)Mathf.Sqrt((float)(dx*dx + dy*dy));
-		Debug.Log ("distConstraint is: "+distConstraint);
+
+		lr = GetComponent<LineRenderer>();	
+		lr.SetWidth(.005f, .005f);
+
 	}
 	
 	// Update is called once per frame
-	void Update () {
-		contract();
-		lr.SetPosition(0, pointa.transform.position);
-		lr.SetPosition(1, pointb.transform.position);
+	void Update () {	
+		if(visible == true)
+		setPosLR();		
 	}
+
+	public void StartUp()
+	{
+		visible = true;
+		Vector3 dist = pointa.transform.position - pointb.transform.position;
+		
+		distConstraint = dist.magnitude * .5f;
+		//Debug.Log ("distConstraint is: "+distConstraint);
+	}
+
+	public void removeLineRenderer()
+	{
+		visible = false;
+		lr.SetVertexCount(0);
+	}
+
 
 	public void contract()
 	{
-		double dx = pointb.getX() - pointa.getX();
-		double dy = pointb.getY() - pointa.getY();
 
-		double h = (double)Mathf.Sqrt((float)(dx*dx + dy*dy)); //dist of a and b, w/o contraction
-		double diff = (distConstraint - h)/h;
-		double offx = dx * .5 * diff;
-		double offy = dy * .5 * diff;
+	
+		Vector3 dist = pointa.transform.position - pointb.transform.position;
 		
-		pointa.pos.x -= offx;
-		pointa.pos.y -= offy;
+		float h = dist.magnitude; //dist of a and b, w/o contraction
+		float diff = h - distConstraint;
+		
+		dist.Normalize();
 
-		pointb.pos.x += offx;
-		pointb.pos.y += offy;
+		//Debug.Log (dist.magnitude);
+		Vector3 off = dist * diff * .5f;
+		
+		//Debug.Log (pointa.transform.position + ", " +pointb.transform.position);
+		//Debug.Log ("dist is : " + "(" + dist.x + ", " + dist.y + ", " + dist.z + ")" + "and off is: "+"(" + off.x + ", " + off.y + ", " + off.z + ")"+ " and diff is: " +diff + " and h is: "+h);		
+		//Debug.Log ("before: "+pointa.transform.position + ",  "+ pointb.transform.position);
+		
 
-		pointa.transform.Translate(new Vector3((float)-offx, (float)-offy, 0) * Time.deltaTime);
-		pointb.transform.Translate(new Vector3((float)offx, (float)offy, 0) * Time.deltaTime);
+		pointa.transform.position += -1 * off;
+		pointb.transform.position += off;
+
+
+		Vector3 distafter = pointa.transform.position - pointb.transform.position;
+		//Debug.Log ("after: "+pointa.transform.position + ",  "+ pointb.transform.position);
 		
-		Debug.Log ("distconst is: "+distConstraint+" and new h is: "+(double)Mathf.Sqrt((float)(dx*dx + dy*dy))); //dist of a and b, w/o contraction
-		
+		//Debug.Log ("constraint: "+distConstraint+", and current dist is: "+dist.magnitude + " and after dist is: " + distafter.magnitude);
 		
 	}
+
+	public void setPosLR()
+	{
+		lr.SetPosition(0, pointa.transform.position);
+		lr.SetPosition(1, pointb.transform.position);	
+	}
+
 }

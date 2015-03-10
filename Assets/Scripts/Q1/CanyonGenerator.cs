@@ -138,10 +138,10 @@ public class CanyonGenerator : MonoBehaviour {
 	{
 		if(Cannon != null)
 		{
-			 Debug.Log("Before: "+Cannon.position);	
+			 //Debug.Log("Before: "+Cannon.position);	
 			 lines[lines.Count/3].name = "Cannon Position";
 			 Cannon.position = lines[lines.Count/3].transform.position;
-			 Debug.Log("After: "+Cannon.position);
+			 //Debug.Log("After: "+Cannon.position);
 			
 		}
 	}
