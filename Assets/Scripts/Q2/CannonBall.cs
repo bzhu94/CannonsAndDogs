@@ -7,7 +7,7 @@ public class CannonBall : MonoBehaviour {
 	public Vector3 Acceleration;
 	public Vector3 Velocity;
 	public Vector3 OldVelocity; 
-	public float Radius;
+	public static float Radius;
 
 	public LineRenderer lr;
 	// Use this for initialization
@@ -40,9 +40,9 @@ public class CannonBall : MonoBehaviour {
 		
 		CheckCollision();
 
-		Debug.Log ("Before: "+ transform.position + " vel: " + (OldVelocity + Velocity) * .5f);
+		//Debug.Log ("Before: "+ transform.position + " vel: " + (OldVelocity + Velocity) * .5f);
 		transform.position += (OldVelocity + Velocity) * .5f * Time.deltaTime;
-		Debug.Log ("After: " + transform.position);
+		//Debug.Log ("After: " + transform.position);
 
 	}
 

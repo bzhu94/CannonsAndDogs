@@ -7,7 +7,7 @@ public class VerletPoint : MonoBehaviour {
 	public Vector3 Acceleration;
 	public Vector3 Velocity;
 	public Vector3 OldVelocity; 
-	public float Radius;
+	public static float Radius;
 	
 	public LineRenderer lr;
 
@@ -43,6 +43,7 @@ public class VerletPoint : MonoBehaviour {
 		
 		CheckCollision();
 		
+		CheckCannonBallCollision();
 		
 		transform.position += (OldVelocity + Velocity) * .5f * Time.deltaTime;
 		
@@ -106,5 +107,35 @@ public class VerletPoint : MonoBehaviour {
 		
 		//MAKE SURE TO DELETE THESE GAMEOBJECTS TO SAVE SPACE!!!!
 	}
+
+	public bool CheckCannonBallCollision()
+	{
+		foreach(GameObject cannonBall in GameObject.FindGameObjectsWithTag("Cannon"))
+		{
+			Vector3 ballPos = cannonBall.transform.position;
+
+			Vector3 forwardCenter = new Vector3((OldVelocity.x + Velocity.x) * .5f * Time.deltaTime + transform.position.x, (OldVelocity.y + Velocity.y) * .5f * Time.deltaTime + transform.position.y, 0);
+			//Debug.Log ("Center: "+ forwardCenter.transform.position);
+			
+			Vector3 velocityDir =  new Vector3((OldVelocity.x + Velocity.x) * .5f * Time.deltaTime, (OldVelocity.y + Velocity.y) * .5f * Time.deltaTime, 0);
+			velocityDir.Normalize();
+			
+			Vector3 projectionPoint = new Vector3(forwardCenter.x + velocityDir.x * Radius, forwardCenter.y + velocityDir.y * Radius, 0); //first find the direction 	
+
+			float x = projectionPoint.x;
+			float y = projectionPoint.y;
+			
+			if(Mathf.Pow(x-ballPos.x, 2) + Mathf.Pow(y-ballPos.y, 2) < CannonBall.Radius)
+			{
+				//Debug.Log ("OW!");
+				Velocity  *= -1;
+				return true;
+			}
+			
+		}
+
+		return false;
+	}
+
 	
 }

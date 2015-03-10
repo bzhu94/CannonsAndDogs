@@ -21,7 +21,6 @@ public class Dog : MonoBehaviour {
 	void Update () {
 
 		RefreshPhysicsAll();	
-		//here detect cannonball collision
 		CheckInBoundsAll();
 
 		for(int i =0; i < 10; i++) //solve constraints multiple times so all constraints are met nicely
@@ -169,8 +168,7 @@ public class Dog : MonoBehaviour {
 		{
 			if( v != null)
 			{
-				v.contract();
-				
+				v.contract();		
 				//Debug.Log (v.name + " velocity is: " + v.Velocity);
 			}
 			else sticksToRemove.Add(v);
@@ -292,16 +290,6 @@ public class Dog : MonoBehaviour {
 		e1.removeLineRenderer();
 		VerletStick e2 = createLine(verletPoints[9], verletPoints[5]);
 		e2.removeLineRenderer();
-
-		//bad eye:
-		/*
-		VerletStick badeyeFrame = createLine(verletPoints[0], verletPoints[8]);
-		badeyeFrame.removeLineRenderer();
-		VerletStick badeyeFrameTwo = createLine(verletPoints[0], verletPoints[6]);
-		badeyeFrameTwo.removeLineRenderer();
-		*/
-		
-
-
 	}
+	
 }
